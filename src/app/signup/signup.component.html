@@ -1,0 +1,35 @@
+<div class="container"><br>
+  <h1 class="h1">Регистрация</h1><br><br>
+  <div class="row">
+    <div class="col-md-6">
+      <form (ngSubmit)="saveUser()" #signupform="ngForm">
+        <div class="form-group">
+          <label for="name">Имя</label>
+          <input type="name" class="form-control" id="name" required [(ngModel)]="user.name" name="name" #name="ngModel">
+          <div [hidden]="name.valid" class="alert alert-danger"> 
+            Обязательно для заполнения!
+          </div>
+        </div>     
+        <div class="form-group">
+          <label for="login">Логин</label>
+          <input type="login" class="form-control" id="login" required [(ngModel)]="user.login" name="login" #login="ngModel">
+          <div [hidden]="login.valid" class="alert alert-danger">
+            Обязательно для заполнения!
+          </div>
+        </div>  
+        <div class="form-group">
+          <label for="password">Пароль</label>
+          <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password" #password="ngModel">
+          <div [hidden]="password.valid" class="alert alert-danger">
+            Обязательно для заполнения!
+          </div>
+        </div>
+        <div class="form-group">          
+          <a href="/" class="btn btn-primary">Назад</a>    
+          <button type="submit" class="btn btn-success" [disabled]="!signupform.form.valid">OK</button>
+        </div>        
+        <div>{{message | uppercase}}</div>
+      </form>
+    </div>    
+  </div>
+</div>

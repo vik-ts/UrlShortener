@@ -1,0 +1,26 @@
+
+.btn {
+    background-color: #061558;
+    font-size: 14px;  
+    cursor: pointer;
+    width:400px; 
+    background: #061558;
+}
+   
+.btn a {
+      background-color: #061558;
+      font-size: 14px;  
+      cursor: pointer;
+      width:400px; 
+      background: #061558;
+}
+btn a:hover {
+    background-color: #051042;
+}
+
+.h1 {
+    color: #040e36;
+    font-size: 50px;
+    font-style: oblique;
+    font-weight:bold;
+}

@@ -1,0 +1,26 @@
+<div class="container"><br>
+  <h1 class = "h1">Сокращатель, сохранение ссылки</h1><br><br>
+  <div class="row">
+    <div class="col-md-6">
+      <form (ngSubmit)="createLink()" #linkForm="ngForm">
+        <div class="form-group">
+          <label for="longlink">Ссылка</label>        
+          <input type="longlink" class="form-control" id="longlink" required [(ngModel)]="link.longlink" name="longlink" #longlink="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="description">Описание</label>
+          <input type="description" class="form-control" id="description" required [(ngModel)]="link.description" name="description" #description="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="tags">Теги</label>
+          <input type="tags" class="form-control" id="tags" required [(ngModel)]="link.tags" name="tags" #description="ngModel">
+        </div>        
+        <div class="form-group">          
+          <a href="/" class="btn btn-primary">Назад</a> 
+          <button type="submit" class="btn btn-success" [disabled]="!linkForm.form.valid">OK</button>           
+        </div>
+        <div>{{message | uppercase}}</div>
+      </form>
+    </div>
+  </div>
+</div>
