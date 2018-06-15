@@ -9,6 +9,8 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { InfoComponent } from './info/info.component';
 import { LinkcreateComponent } from './linkcreate/linkcreate.component';
+import { InfoUserComponent } from './info-user/info-user.component';
+import { InfoOneComponent } from './info-one/info-one.component';
 
 const appRoutes: Routes = [
   {
@@ -32,6 +34,16 @@ const appRoutes: Routes = [
     data: { title: 'Информация' }
   },
   {
+    path: 'info-user',
+    component: InfoUserComponent,
+    data: { title: 'Статистика' }
+  },
+  {
+    path: 'info-one/:id',
+    component: InfoOneComponent,
+    data: { title: 'ИнформацияПодробно'}
+  },
+  {
     path: 'linkcreate',
     component: LinkcreateComponent,
     data: { title: 'Сокращатель' }
@@ -48,6 +60,8 @@ const appRoutes: Routes = [
     HomeComponent,
     LoginComponent,
     InfoComponent,
+    InfoUserComponent,
+    InfoOneComponent,
     LinkcreateComponent,
     SignupComponent
   ],

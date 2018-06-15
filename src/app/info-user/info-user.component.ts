@@ -3,19 +3,21 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-info',
-  templateUrl: './info.component.html',
-  styleUrls: ['./info.component.css']
+  selector: 'app-info-user',
+  templateUrl: './info-user.component.html',
+  styleUrls: ['./info-user.component.css']
 })
-export class InfoComponent implements OnInit {
+export class InfoUserComponent implements OnInit {
 
   links: any;
+  click = 0;
 
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
-    this.http.get('/userlink/info/').subscribe(data => {
+    this.http.get('/userlink/linkcreate/').subscribe(data => {
     this.links = data;
+    this.click = this.click + data['click'];
     });
   }
 }

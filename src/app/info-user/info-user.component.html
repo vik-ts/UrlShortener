@@ -1,0 +1,30 @@
+<div class="container"><br>
+  <h1 class = "h1">Статистика</h1><br><br>
+  <a href="/linkcreate" class="btn btn-primary">Добавить</a><br><br> 
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Ссылка</th>
+        <th>Сокращенная ссылка</th>
+        <th>Описание</th>
+        <th>Теги</th>
+        <th>Количество переходов</th>       
+        <th class="col-sm-1"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let link of links">
+        <td>{{ link.longlink }}</td>
+        <td>{{ link.shortlink }}</td>
+        <td>{{ link.description }}</td>
+        <td>{{ link.tags }}</td>
+        <td>{{ link.click }}</td>
+        <td class="col-sm-1">
+					<a href="/info-one/{{ link.shortlink}}" class="btn btn-primary">редак-ть >></a>
+				</td>        
+      </tr>
+    </tbody>
+  </table>
+  <label>Итого переходов:</label>
+  <div>{{click}}</div>
+</div>

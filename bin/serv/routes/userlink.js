@@ -1,4 +1,3 @@
-// var bodyParser = require('body-parser');
 var User       = require('../models/user');
 var Links      = require('../models/links');
 var jwt        = require('jsonwebtoken');
@@ -80,9 +79,35 @@ module.exports = function(app, express) {
 		res.json({ message: 'Добро пожаловать!' });	
 	});
 
-	apiRouter.route('/linkcreate')
-   
-		
+	// all links of users
+	apiRouter.get('/info', function(req, res,next) {
+  Links.find(function (err, link) {
+    if (err) return next(err);
+    res.json(link);
+  	});
+	});
+
+	// info by 1 link
+	apiRouter.get('/info-one', function(req, res,next) {
+		Links.findOne({ shortlink: req.params.shortlink })
+		.exec(function (err, link) {
+			if (err) return next(err);
+			res.json(link);
+			});
+	});	
+
+	apiRouter.route('/linkcreate')   
+		// all links of 1 user
+		.get(function(req, res) {
+			User.find({login: "123"})
+				.populate('links')
+				.select('-_id links')			
+				.exec(function (err, user) {
+					if (err) return res.send(err);
+					res.json(user[0].links);
+				})
+		})
+
 		.post(function(req, res) {
 				User.findOne({login:"123"}).populate('links').exec(function (err, user) {
 				// {login:req.decoded.login}

@@ -5,17 +5,18 @@
       <tr>
         <th>Ссылка</th>
         <th>Сокращенная ссылка</th>
-        <th>Описание</th>
-        <th>Теги</th>
+        <th class="col-sm-1"></th>
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr *ngFor="let link of links">
         <td>{{ link.longlink }}</td>
         <td>{{ link.shortlink }}</td>
-        <td>{{ link.description }}</td>
-        <td>{{ link.tags }}</td>
+        <td class="col-sm-1">
+					<a href="/info-one/{{ link }}" class="btn btn-primary">подробно >></a>
+				</td>        
       </tr>
     </tbody>
   </table>
 </div>
+
