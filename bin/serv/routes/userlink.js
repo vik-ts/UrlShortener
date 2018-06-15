@@ -87,8 +87,17 @@ module.exports = function(app, express) {
   	});
 	});
 
+	// all links - tag
+	apiRouter.get('/tag/:tagone', function(req, res,next) {
+		Links.find({ tags: req.params.tagone  })
+		.exec(function (err, link) {
+			if (err) return next(err);
+			res.json(link);
+			});
+	});
+
 	// info by 1 link
-	apiRouter.get('/info-one', function(req, res,next) {
+	apiRouter.get('/info-one/:shortlink', function(req, res,next) {
 		Links.findOne({ shortlink: req.params.shortlink })
 		.exec(function (err, link) {
 			if (err) return next(err);

@@ -1,0 +1,22 @@
+<div class="container"><br>
+  <h1 class = "h1">Ссылки с выбранным тегом</h1><br><br>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Ссылка</th>
+        <th>Сокращенная ссылка</th>
+        <th>Описание</th>
+        <th>Теги</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let link of links">
+        <td>{{ link.longlink }}</td>
+        <td>{{ link.shortlink }}</td>
+        <td>{{ link.description }}</td>
+        <td><a href="/tag/{{ tagone }}" *ngFor="let tagone of link.tags">{{ tagone }}; </a></td>        
+      </tr>
+    </tbody>
+  </table>
+  <a href="/info" class="btn btn-primary">Назад</a>
+</div>

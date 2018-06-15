@@ -17,7 +17,7 @@
         <td>{{ link.longlink }}</td>
         <td>{{ link.shortlink }}</td>
         <td>{{ link.description }}</td>
-        <td>{{ link.tags }}</td>
+        <td><a href="/tag/{{ tagone }}" *ngFor="let tagone of link.tags">{{ tagone }}; </a></td>
         <td>{{ link.click }}</td>
         <td class="col-sm-1">
 					<a href="/info-one/{{ link.shortlink}}" class="btn btn-primary">редак-ть >></a>

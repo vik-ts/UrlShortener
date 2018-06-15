@@ -1,16 +1,13 @@
 <div class="container"><br>
   <h1 class = "h1">Информация о ссылке</h1><br><br> 
   <dl class="list">
-    <dt>Ссылка</dt>
-    <dd>{{ link.longlink }}</dd>
-    <dt>Сокращенная ссылка</dt>
-    <dd>{{ link.shortlink }}</dd>
-    <dt>Описание</dt>
-    <dd>{{ link.description }}</dd>
-    <dt>Теги</dt>
-    <dd>{{ link.tags }}</dd>   
-  </dl>
-  <a href="/info" class="btn btn-primary">Назад</a>  
-</div>
-
-
+    <dt>Ссылка:</dt>
+    <dd>{{ link.longlink }}</dd><br>
+    <dt>Сокращенная ссылка:</dt>
+    <dd>{{ link.shortlink }}</dd><br>
+    <dt>Описание:</dt>
+    <dd>{{ link.description }}</dd><br>
+    <dt>Теги:</dt><div>* нажмите на тег для просмотра связанных с ним ссылок</div><br>
+    <dd><a href="/tag/{{ tagone }}" *ngFor="let tagone of link.tags">{{ tagone }}; </a></dd>
+  </dl>  
+  <a href="/info" class="btn btn-primary">Назад</a>

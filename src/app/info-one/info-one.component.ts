@@ -15,11 +15,11 @@ export class InfoOneComponent implements OnInit {
   constructor(private http: HttpClient, private router: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getLinkDetail(this.router.snapshot.params['id']);
+    this.getLinkDetail(this.router.snapshot.params.shortlink);
   }
 
-  getLinkDetail(id) {
-    this.http.get('/userlink/info-one/' + id).subscribe(data => {
+  getLinkDetail(shortlink) {
+    this.http.get('/userlink/info-one/' + shortlink).subscribe(data => {
       this.link = data;
     });
   }
