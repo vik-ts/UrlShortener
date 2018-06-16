@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class TagComponent implements OnInit {
 
   links: {};
+  tagname = '';
 
   constructor(private http: HttpClient, private router: ActivatedRoute) { }
 
@@ -20,6 +21,7 @@ export class TagComponent implements OnInit {
   getLinks(tagone) {
       this.http.get('/userlink/tag/' + tagone).subscribe(data => {
       this.links = data;
+      this.tagname = tagone;
     });
   }
 }

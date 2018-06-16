@@ -15,16 +15,18 @@
     <tbody>
       <tr *ngFor="let link of links">
         <td>{{ link.longlink }}</td>
-        <td>{{ link.shortlink }}</td>
+        <td>
+          <a href="http://localhost:3000/openlink/{{ link.shortlink }}">localhost:3000/openlink/{{ link.shortlink }}</a>
+        </td>
         <td>{{ link.description }}</td>
         <td><a href="/tag/{{ tagone }}" *ngFor="let tagone of link.tags">{{ tagone }}; </a></td>
         <td>{{ link.click }}</td>
         <td class="col-sm-1">
-					<a href="/info-one/{{ link.shortlink}}" class="btn btn-primary">редак-ть >></a>
+					<a href="/linkedit/{{ link.shortlink}}" class="btn btn-primary">редак-ть >></a>
 				</td>        
       </tr>
     </tbody>
   </table>
   <label>Итого переходов:</label>
-  <div>{{click}}</div>
+  <div>{{getSumClicks()}}</div>
 </div>

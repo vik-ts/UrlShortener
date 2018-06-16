@@ -13,8 +13,6 @@ export class LinkcreateComponent implements OnInit {
 
   link = {};
   message = '';
-  processing = true;
-  regular = '';
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -24,10 +22,9 @@ export class LinkcreateComponent implements OnInit {
     this.http.post('/userlink/linkcreate/', this.link)
       .subscribe(res => {
         this.message = res['message'];
-      }, (err) => {
+        }, (err) => {
          console.log(err);
          this.message = err['message'];
-        // this.regular = '/(https?:\/\/)?(wхъфырэчстьюa-z0-9_]{1,})?\/?([a-z0-9_-]{2,}\.[a-z]{2,6})?(\?[a-z0-9_]{2,}=[-0-9]{';
         }
       );
   }

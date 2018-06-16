@@ -6,6 +6,9 @@
         <div class="form-group">
           <label for="longlink">Ссылка</label>        
           <input type="longlink" class="form-control" id="longlink" required [(ngModel)]="link.longlink" name="longlink" #longlink="ngModel">
+          <div [hidden]="longlink.valid" class="alert alert-danger">
+              Необходимо указать корректную ссылку!
+          </div>
         </div>
         <div class="form-group">
           <label for="description">Описание</label>
@@ -13,13 +16,14 @@
         </div>
         <div class="form-group">
           <label for="tags">Теги</label>
-          <div>* вносите теги через ";"</div><br>
+          <div>* после каждого тега необходимо поставить ","</div><br>
           <input type="tags" class="form-control" id="tags" required [(ngModel)]="link.tags" name="tags" #description="ngModel">
         </div>        
         <div class="form-group">          
           <button type="submit" class="btn btn-success" [disabled]="!linkForm.form.valid">OK</button>           
         </div>
-        <div>{{message | uppercase}}</div>
+        <div>{{message}}</div>
+        <div>{{regular}}</div>
       </form>
     </div>
   </div>

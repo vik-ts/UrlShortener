@@ -1,0 +1,30 @@
+<div class="container"><br>
+  <h1 class = "h1">Редактирование</h1><br>
+  <div class="row">
+    <div class="col-md-6">
+      <form (ngSubmit)="edit(link.shortlink)" #linkForm="ngForm">
+        <div class="form-group">
+          <label for="longlink">Ссылка</label>
+          <input type="text" class="form-control" [(ngModel)]="link.longlink" name="longlink" disabled>
+        </div>
+        <div class="form-group">
+          <label for="shortlink">Сокращенная ссылка</label><br>
+          <a href="http://localhost:3000/openlink/{{ link.shortlink }}">localhost:3000/openlink/{{ link.shortlink }}</a>
+        </div>
+        <div class="form-group">
+          <label for="description">Описание</label>
+          <input type="description" class="form-control" id="description" [(ngModel)]="link.description" name="description" #description="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="tags">Теги</label>
+          <div>* после каждого тега необходимо поставить ","</div><br>
+          <input type="tags" class="form-control" id="tags" [(ngModel)]="link.tags" name="tags" #tags="ngModel">
+        </div>         
+        <div class="form-group">
+          <a href="/info-user" class="btn btn-primary">Назад</a>
+          <button type="submit" class="btn btn-success" [disabled]="!linkForm.form.valid">ОК</button>
+        </div>
+        <div>{{message | uppercase}}</div>
+      </form>
+   </div>
+</div>

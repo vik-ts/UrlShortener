@@ -12,6 +12,9 @@ import { LinkcreateComponent } from './linkcreate/linkcreate.component';
 import { InfoUserComponent } from './info-user/info-user.component';
 import { InfoOneComponent } from './info-one/info-one.component';
 import { TagComponent } from './tag/tag.component';
+import { LinkeditComponent } from './linkedit/linkedit.component';
+import { AuthService } from './auth.service';
+import { OpenlinkComponent } from './openlink/openlink.component';
 
 const appRoutes: Routes = [
   {
@@ -42,17 +45,27 @@ const appRoutes: Routes = [
   {
     path: 'info-one/:shortlink',
     component: InfoOneComponent,
-    data: { title: 'ИнформацияПодробно'}
+    data: { title: 'ИнформацияПодробно' }
   },
   {
     path: 'tag/:tagone',
     component: TagComponent,
-    data: { title: 'СсылкиСТегом'}
+    data: { title: 'СсылкиСТегом' }
   },
   {
     path: 'linkcreate',
     component: LinkcreateComponent,
     data: { title: 'Сокращатель' }
+  },
+  {
+    path: 'linkedit/:shortlink',
+    component: LinkeditComponent,
+    data: { title: 'Редактирование' }
+  },
+  {
+    path: 'openlink/:shortlink',
+    component: OpenlinkComponent,
+    data: { title: 'Редактирование' }
   },
   { path: '',
     redirectTo: '/home',
@@ -68,6 +81,8 @@ const appRoutes: Routes = [
     InfoComponent,
     InfoUserComponent,
     TagComponent,
+    OpenlinkComponent,
+    LinkeditComponent,
     InfoOneComponent,
     LinkcreateComponent,
     SignupComponent
@@ -81,7 +96,7 @@ const appRoutes: Routes = [
       { enableTracing: true }
     )
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

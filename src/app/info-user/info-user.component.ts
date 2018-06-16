@@ -10,14 +10,20 @@ import { Router } from '@angular/router';
 export class InfoUserComponent implements OnInit {
 
   links: any;
-  click = 0;
 
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
     this.http.get('/userlink/linkcreate/').subscribe(data => {
     this.links = data;
-    this.click = this.click + data['click'];
     });
+  }
+
+  getSumClicks(): number {
+    let sum = 0;
+    for (let i = 0; i < this.links.length; i++) {
+      sum += this.links[i].click;
+    }
+    return sum;
   }
 }

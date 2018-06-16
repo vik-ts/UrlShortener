@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,12 +15,13 @@ export class LoginComponent implements OnInit {
   user = {};
   message = '';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private auth: AuthService) { }
 
   ngOnInit() {
   }
   findUser() {
-      this.http.post('/userlink/login/', this.user)
+      this.auth.doLogin(this.user)
+      // this.http.post('/userlink/login/', this.user)
       .subscribe(res => {
         this.message = res['message'];
         if (res['success']) {

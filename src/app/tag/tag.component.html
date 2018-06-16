@@ -1,5 +1,6 @@
 <div class="container"><br>
-  <h1 class = "h1">Ссылки с выбранным тегом</h1><br><br>
+  <h1 class = "h1">Ссылки с выбранным тегом ({{ tagname }})</h1>
+  <br><br>
   <table class="table">
     <thead>
       <tr>
@@ -12,11 +13,12 @@
     <tbody>
       <tr *ngFor="let link of links">
         <td>{{ link.longlink }}</td>
-        <td>{{ link.shortlink }}</td>
+        <td>
+          <a href="http://localhost:3000/openlink/{{ link.shortlink }}">localhost:3000/openlink/{{ link.shortlink }}</a>
+        </td>
         <td>{{ link.description }}</td>
-        <td><a href="/tag/{{ tagone }}" *ngFor="let tagone of link.tags">{{ tagone }}; </a></td>        
+        <td><a href="/tag/{{ tag }}" *ngFor="let tag of link.tags">{{ tag }}; </a></td>        
       </tr>
     </tbody>
   </table>
-  <a href="/info" class="btn btn-primary">Назад</a>
 </div>

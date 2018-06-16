@@ -83,8 +83,8 @@ module.exports = function(app, express) {
 	apiRouter.get('/info', function(req, res,next) {
   Links.find(function (err, link) {
     if (err) return next(err);
-    res.json(link);
-  	});
+		res.json(link);
+		});
 	});
 
 	// all links - tag
@@ -104,7 +104,7 @@ module.exports = function(app, express) {
 			res.json(link);
 			});
 	});	
-
+	
 	apiRouter.route('/linkcreate')   
 		// all links of 1 user
 		.get(function(req, res) {
@@ -141,7 +141,7 @@ module.exports = function(app, express) {
 						    if (err) return res.send(err);
 						   		res.json({ 
 			      			success: true, 
-			      			message: 'Ваша сокращенная ссылка localhost:3000/redirect/' + link.shortlink 
+			      			message: 'Ваша сокращенная ссылка:    localhost:3000/openlink/' + link.shortlink 
 			    			});
 						});
 					
@@ -149,6 +149,50 @@ module.exports = function(app, express) {
 			})
 		});	
 
+  // Edit link
+	apiRouter.put('/linkedit/:shortlink', function(req, res) {
+		Links.findOne({ shortlink: req.params.shortlink })
+			.exec(function (err, link) {
+			if (err) res.send(err);
+				if (link) {
+					if (req.body.description) {
+						link.description = req.body.description;
+					} else link.description = '';
+		  if (req.body.tags) {
+					link.tags = linkfunct.toSplitTags(req.body.tags);
+					} else link.tags = [];
+					link.save(function (err) {
+						if (err) return res.send(err);
+						res.json({ 
+		      				success: true, 
+		      				message: 'Ссылка отредактирована!' 
+		    			});
+					});
+				} else res.json({ 
+	      				success: false, 
+	      				message: 'Отсутствует ссылка для редактирования.' 
+	    			});
+			})
+	});
+
+	// open link
+	apiRouter.get('/openlink/:shortlink', function(req, res) {
+		Links.findOne({ shortlink: req.params.shortlink })
+			.populate('links')
+	  	.exec(function (err, link) {
+				if (err) res.send(err);
+				if(link) {
+					link.click = link.click + 1;
+					link.save(function (err) {
+						if (err) return res.send(err);
+						res.json(link);
+					});
+				} else res.json({
+					success: false,
+				});			
+			})
+	});	
+	
 	// api endpoint to get user information
 	apiRouter.get('/me', function(req, res) {
 		res.send(req.decoded);

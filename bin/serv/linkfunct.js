@@ -15,15 +15,15 @@ exports.toShort = shortLink;
 //split tags
 var recordTags = function(tags){
 	var tagsString = tags.toString();
-	var tagsArray = tagsString.split(';');
+	var tagsArray = tagsString.split(',');
 	var i = 0;
 	var tagname = '';
 	var tagnameTrim = '';
 	for (i; i < tagsArray.length; i++) {
 		tagname = tagsArray[i].trim();
-		tagnameTrim = tagnameTrim + tagname + ';';
+		tagnameTrim = tagnameTrim + tagname + ',';
 	}
-	tagnameTrim = tagnameTrim.split(';');
+	tagnameTrim = tagnameTrim.split(',');
 	for (var t = 0; t < 2; t++) {
 		tagPop = tagnameTrim.pop();
 	}

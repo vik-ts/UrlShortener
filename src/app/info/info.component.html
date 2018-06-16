@@ -11,7 +11,9 @@
     <tbody>
       <tr *ngFor="let link of links">
         <td>{{ link.longlink }}</td>
-        <td>{{ link.shortlink }}</td>
+        <td>
+          <a href="http://localhost:3000/openlink/{{ link.shortlink }}">localhost:3000/openlink/{{ link.shortlink }}</a>
+        </td>
         <td class="col-sm-1">
 					<a href="/info-one/{{ link.shortlink }}" class="btn btn-primary">подробно >></a>
 				</td>
