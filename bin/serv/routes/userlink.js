@@ -5,7 +5,7 @@ var config     = require('../../config');
 var linkfunct	 = require('../linkfunct');
 
 // perem for creating tokens
-var perem = config.perem;
+var tokensecret = config.tokensecret;
 
 module.exports = function(app, express) {
 
@@ -37,7 +37,7 @@ module.exports = function(app, express) {
 	        var token = jwt.sign({
 	        	name: user.name,
 	        	login: user.login
-	        }, perem, {
+	        }, tokensecret, {
 	          expiresInMinutes: 1440 // 24 hours
 	        });
 					
@@ -70,7 +70,6 @@ module.exports = function(app, express) {
 				}
 				res.json({ message: 'Пользователь создан!' });
 			});
-
 		});
 
 	// LINKS OF USERS
@@ -80,7 +79,25 @@ module.exports = function(app, express) {
 			res.json(link);
 			});
 		});
-				
+
+	// LINK INFORMATION
+	apiRouter.get('/info-one/:shortlink', function(req, res,next) {
+		Links.findOne({ shortlink: req.params.shortlink })
+		.exec(function (err, link) {
+			if (err) return next(err);
+			res.json(link);
+			});
+	});		
+
+	// ALL TAG LINKS
+	apiRouter.get('/tag/:tagone', function(req, res,next) {
+		Links.find({ tags: req.params.tagone  })
+		.exec(function (err, link) {
+			if (err) return next(err);
+			res.json(link);
+			});
+	});
+
 	// route middleware to verify a token
 	apiRouter.use(function(req, res, next) {
 		// do logging
@@ -93,7 +110,7 @@ module.exports = function(app, express) {
 	  if (token) {
 
 	    // verifies secret and checks exp
-	    jwt.verify(token, perem, function(err, decoded) {      
+	    jwt.verify(token, tokensecret, function(err, decoded) {      
 
 	      if (err) {
 	        res.status(403).send({ 
@@ -124,26 +141,8 @@ module.exports = function(app, express) {
 		res.json({ message: 'Добро пожаловать!' });	
 	});
 
-	// ALL TAG LINKS
-	apiRouter.get('/tag/:tagone', function(req, res,next) {
-		Links.find({ tags: req.params.tagone  })
-		.exec(function (err, link) {
-			if (err) return next(err);
-			res.json(link);
-			});
-	});
+	apiRouter.route('/linkcreate')
 
-	// LINK INFORMATION
-	apiRouter.get('/info-one/:shortlink', function(req, res,next) {
-		Links.findOne({ shortlink: req.params.shortlink })
-		.exec(function (err, link) {
-			if (err) return next(err);
-			res.json(link);
-			});
-	});	
-	
-	apiRouter.route('/linkcreate')   
-	
 		// ALL LINKS OF USER
 		.get(function(req, res) {
 			User.find({login:req.decoded.login})
@@ -172,7 +171,7 @@ module.exports = function(app, express) {
 					  
 					  user.links.push(link);
 
-				user.save(function (err) {
+					user.save(function (err) {
 					if (err) return res.send(err);
 		  				
 						link.save(function (err) {
@@ -230,11 +229,6 @@ module.exports = function(app, express) {
 				});			
 			})
 	});	
-	
-	// GET INFORMATION ABOUT THE USER
-	apiRouter.get('/me', function(req, res) {
-		res.send(req.decoded);
-	});
 
 	return apiRouter;
 };

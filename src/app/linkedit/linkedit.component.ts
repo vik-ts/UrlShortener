@@ -13,8 +13,6 @@ export class LinkeditComponent implements OnInit {
 
   link: {};
   message = '';
-  TagsP = '';
-  i = 0;
 
   constructor(private http: HttpClient, private router: ActivatedRoute, private rout: Router) { }
 
