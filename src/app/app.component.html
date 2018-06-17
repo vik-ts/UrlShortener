@@ -1,17 +1,22 @@
 <nav>
     <ul>
-      <li>
+      <li *ngIf="!auth.loggedIn">
         <a routerLink="/home" routerLinkActive="active">Главная</a>
       </li>
       <li>
         <a routerLink="/info" routerLinkActive="active">Информация</a>
       </li>      
-      <li>
-        <a routerLink="/linkcreate" routerLinkActive="active">Сокращатель</a>
-      </li>
-      <li>
-        <a routerLink="/info-user" routerLinkActive="active">Статистика</a>
-      </li>
+      <ul *ngIf="auth.loggedIn">
+          <li>
+            <a routerLink="/linkcreate" routerLinkActive="active">Сокращатель</a>
+          </li>
+          <li>
+            <a routerLink="/info-user" routerLinkActive="active">Статистика</a>
+          </li>
+          <li>
+            <a (click)="logout()">Выход</a>
+          </li>
+      </ul> 
     </ul>
 </nav>
 <router-outlet></router-outlet>

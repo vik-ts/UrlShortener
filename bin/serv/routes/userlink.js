@@ -75,16 +75,55 @@ module.exports = function(app, express) {
 
 		});
 
-	apiRouter.get('/', function(req, res) {
-		res.json({ message: 'Добро пожаловать!' });	
-	});
-
 	// all links of users
 	apiRouter.get('/info', function(req, res,next) {
-  Links.find(function (err, link) {
-    if (err) return next(err);
-		res.json(link);
+		Links.find(function (err, link) {
+			if (err) return next(err);
+			res.json(link);
+			});
 		});
+				
+	// route middleware to verify a token
+	apiRouter.use(function(req, res, next) {
+		// do logging
+		console.log('Somebody just came to our app!');
+
+	  // check header or url parameters or post parameters for token
+	  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+	  // decode token
+	  if (token) {
+
+	    // verifies secret and checks exp
+	    jwt.verify(token, perem, function(err, decoded) {      
+
+	      if (err) {
+	        res.status(403).send({ 
+	        	success: false, 
+	        	message: 'Failed to authenticate token.' 
+	    	});  	   
+	      } else { 
+	        // if everything is good, save to request for use in other routes
+	        req.decoded = decoded;
+	            
+	        next(); // make sure we go to the next routes and don't stop here
+	      }
+	    });
+
+	  } else {
+
+	    // if there is no token
+	    // return an HTTP response of 403 (access forbidden) and an error message
+   	 	res.status(403).send({ 
+   	 		success: false, 
+   	 		message: 'No token provided.' 
+   	 	});
+	    
+	  }
+	});
+
+	apiRouter.get('/', function(req, res) {
+		res.json({ message: 'Добро пожаловать!' });	
 	});
 
 	// all links - tag
@@ -108,7 +147,7 @@ module.exports = function(app, express) {
 	apiRouter.route('/linkcreate')   
 		// all links of 1 user
 		.get(function(req, res) {
-			User.find({login: "123"})
+			User.find({login:req.decoded.login})
 				.populate('links')
 				.select('-_id links')			
 				.exec(function (err, user) {
@@ -118,8 +157,7 @@ module.exports = function(app, express) {
 		})
 
 		.post(function(req, res) {
-				User.findOne({login:"123"}).populate('links').exec(function (err, user) {
-				// {login:req.decoded.login}
+				User.findOne({login:req.decoded.login}).populate('links').exec(function (err, user) {				
 				if (req.body.tags) {
 					tagname = linkfunct.toSplitTags(req.body.tags);
 				} else tagname = [];

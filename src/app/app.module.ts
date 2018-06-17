@@ -16,6 +16,9 @@ import { LinkeditComponent } from './linkedit/linkedit.component';
 import { AuthService } from './auth.service';
 import { OpenlinkComponent } from './openlink/openlink.component';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './auth/token.interceptor';
+
 const appRoutes: Routes = [
   {
     path: 'home',
@@ -96,7 +99,14 @@ const appRoutes: Routes = [
       { enableTracing: true }
     )
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

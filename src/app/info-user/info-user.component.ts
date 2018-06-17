@@ -21,8 +21,10 @@ export class InfoUserComponent implements OnInit {
 
   getSumClicks(): number {
     let sum = 0;
-    for (let i = 0; i < this.links.length; i++) {
-      sum += this.links[i].click;
+    if (this.links) {
+      for (let i = 0; i < this.links.length; i++) {
+        sum += this.links[i].click;
+      }
     }
     return sum;
   }

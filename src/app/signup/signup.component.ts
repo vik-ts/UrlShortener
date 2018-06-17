@@ -21,11 +21,14 @@ export class SignupComponent implements OnInit {
   saveUser() {
     this.http.post('/userlink/signup/', this.user)
       .subscribe(res => {
-
         this.message = res['message'];
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+          },
+        1500);
         }, (err) => {
           console.log(err);
-         this.message = err['message'];
+          this.message = err['message'];
         }
       );
   }
