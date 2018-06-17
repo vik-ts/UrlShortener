@@ -1,6 +1,6 @@
 <div class="container"><br>
   <h1 class = "h1">Информация о ссылке</h1><br><br> 
-  <dl class="list">
+  <dl class="list" *ngIf='link'>
     <dt>Ссылка:</dt>
     <dd>{{ link.longlink }}</dd><br>
     <dt>Сокращенная ссылка:</dt>

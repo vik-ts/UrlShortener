@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { InfoUserComponent } from './info-user.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 describe('InfoUserComponent', () => {
   let component: InfoUserComponent;
@@ -8,7 +10,8 @@ describe('InfoUserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InfoUserComponent ]
+      declarations: [ InfoUserComponent ],
+      imports: [RouterTestingModule, HttpClientModule, FormsModule]
     })
     .compileComponents();
   }));

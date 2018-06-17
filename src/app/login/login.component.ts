@@ -1,6 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -14,7 +12,7 @@ export class LoginComponent implements OnInit {
   user = {};
   message = '';
 
-  constructor(private http: HttpClient, private router: Router, private auth: AuthService) { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit() {
   }

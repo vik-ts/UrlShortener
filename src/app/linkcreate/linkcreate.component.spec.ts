@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { LinkcreateComponent } from './linkcreate.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 describe('LinkcreateComponent', () => {
   let component: LinkcreateComponent;
@@ -8,7 +10,8 @@ describe('LinkcreateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LinkcreateComponent ]
+      declarations: [ LinkcreateComponent ],
+      imports: [RouterTestingModule, HttpClientModule, FormsModule]
     })
     .compileComponents();
   }));

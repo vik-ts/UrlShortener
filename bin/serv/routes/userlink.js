@@ -11,12 +11,10 @@ module.exports = function(app, express) {
 
 	var apiRouter = express.Router();
 
-	// authenticate a user
+	// AUTHENTICATE a user
 	apiRouter.post('/login', function(req, res) {
 
-	  User.findOne({
-	    login: req.body.login
-	  }).select('name login password').exec(function(err, user) {
+	  User.findOne({login: req.body.login}).select('name login password').exec(function(err, user) {
 			message: 'Ваш пользователь!'
 	    if (err) throw err;
 
@@ -35,8 +33,7 @@ module.exports = function(app, express) {
 	      	});
 	      } else {
 
-	        // if user is found and password is right
-	        // create a token
+	        // if user is found and password is right create a token
 	        var token = jwt.sign({
 	        	name: user.name,
 	        	login: user.login
@@ -54,6 +51,7 @@ module.exports = function(app, express) {
 	  });
 	});
 
+	// SIGNUP
 	apiRouter.route('/signup')
 
 		.post(function(req, res) {
@@ -75,7 +73,7 @@ module.exports = function(app, express) {
 
 		});
 
-	// all links of users
+	// LINKS OF USERS
 	apiRouter.get('/info', function(req, res,next) {
 		Links.find(function (err, link) {
 			if (err) return next(err);
@@ -126,7 +124,7 @@ module.exports = function(app, express) {
 		res.json({ message: 'Добро пожаловать!' });	
 	});
 
-	// all links - tag
+	// ALL TAG LINKS
 	apiRouter.get('/tag/:tagone', function(req, res,next) {
 		Links.find({ tags: req.params.tagone  })
 		.exec(function (err, link) {
@@ -135,7 +133,7 @@ module.exports = function(app, express) {
 			});
 	});
 
-	// info by 1 link
+	// LINK INFORMATION
 	apiRouter.get('/info-one/:shortlink', function(req, res,next) {
 		Links.findOne({ shortlink: req.params.shortlink })
 		.exec(function (err, link) {
@@ -145,7 +143,8 @@ module.exports = function(app, express) {
 	});	
 	
 	apiRouter.route('/linkcreate')   
-		// all links of 1 user
+	
+		// ALL LINKS OF USER
 		.get(function(req, res) {
 			User.find({login:req.decoded.login})
 				.populate('links')
@@ -156,6 +155,7 @@ module.exports = function(app, express) {
 				})
 		})
 
+		// CREATE LINK
 		.post(function(req, res) {
 				User.findOne({login:req.decoded.login}).populate('links').exec(function (err, user) {				
 				if (req.body.tags) {
@@ -187,7 +187,7 @@ module.exports = function(app, express) {
 			})
 		});	
 
-  // Edit link
+  // EDIT LINK
 	apiRouter.put('/linkedit/:shortlink', function(req, res) {
 		Links.findOne({ shortlink: req.params.shortlink })
 			.exec(function (err, link) {
@@ -213,7 +213,7 @@ module.exports = function(app, express) {
 			})
 	});
 
-	// open link
+	// OPEN LINK
 	apiRouter.get('/openlink/:shortlink', function(req, res) {
 		Links.findOne({ shortlink: req.params.shortlink })
 			.populate('links')
@@ -231,7 +231,7 @@ module.exports = function(app, express) {
 			})
 	});	
 	
-	// api endpoint to get user information
+	// GET INFORMATION ABOUT THE USER
 	apiRouter.get('/me', function(req, res) {
 		res.send(req.decoded);
 	});
