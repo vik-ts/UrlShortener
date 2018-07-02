@@ -17,7 +17,7 @@ module.exports = function(app, express) {
 	  User.findOne({login: req.body.login}).select('name login password').exec(function(err, user) {
 			message: 'Ваш пользователь!'
 	    if (err) throw err;
-
+	
 	    if (!user) {
 	      res.json({ 
 	      	success: false, 
@@ -97,6 +97,24 @@ module.exports = function(app, express) {
 			res.json(link);
 			});
 	});
+
+	// OPEN LINK
+	apiRouter.get('/openlink/:shortlink', function(req, res) {
+		Links.findOne({ shortlink: req.params.shortlink })
+			.populate('links')
+	  	.exec(function (err, link) {
+				if (err) res.send(err);
+				if(link) {
+					link.click = link.click + 1;
+					link.save(function (err) {
+						if (err) return res.send(err);
+						res.json(link);
+					});
+				} else res.json({
+					success: false,
+				});			
+			})
+	});	
 
 	// route middleware to verify a token
 	apiRouter.use(function(req, res, next) {
@@ -211,24 +229,6 @@ module.exports = function(app, express) {
 	    			});
 			})
 	});
-
-	// OPEN LINK
-	apiRouter.get('/openlink/:shortlink', function(req, res) {
-		Links.findOne({ shortlink: req.params.shortlink })
-			.populate('links')
-	  	.exec(function (err, link) {
-				if (err) res.send(err);
-				if(link) {
-					link.click = link.click + 1;
-					link.save(function (err) {
-						if (err) return res.send(err);
-						res.json(link);
-					});
-				} else res.json({
-					success: false,
-				});			
-			})
-	});	
 
 	return apiRouter;
 };
