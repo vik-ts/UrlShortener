@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
+    "bin": "node ./bin/www",
     "start": "ng build && node ./bin/www",
     "build": "ng build",
     "test": "ng test --sourcemap=false",
@@ -41,6 +42,8 @@
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
+    "chai": "^3.2.0",
+    "chai-http": "^1.0.0",
     "codelyzer": "^4.0.1",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",

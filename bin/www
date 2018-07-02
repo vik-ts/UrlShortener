@@ -17,15 +17,22 @@ app.use(bodyParser.json());
 app.use(function(req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization');
 	next();
 });
 
 // log all requests to the console 
 app.use(morgan('dev'));
 
-// connect to our database (hosted on modulus.io)
-mongoose.connect(config.database); 
+// connect to our database
+mongoose.connect(config.mongoURI[app.settings.env], function(err, res) {
+  if(err) {
+    console.log('Error connecting to the database. ' + err);
+  } else {
+    console.log('Connected to Database: ' + config.mongoURI[app.settings.env]);
+  }
+});
+
 
 mongoose.Promise = global.Promise;
 
@@ -47,3 +54,5 @@ app.get('*', function(req, res) {
 // ====================================
 app.listen(config.port);
 console.log('Listeting on port ' + config.port);
+
+module.exports = app;
