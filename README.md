@@ -7,3 +7,5 @@ Angular5
 Bootstrap 
 @angular/cli
 karma + jasmin 
+chai + mocha (npm install -g mocha@2.3.1)
+
